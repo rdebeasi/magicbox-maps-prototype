@@ -39,7 +39,7 @@ pipeline {
                     timeout(5) { // in minutes
                         openshift.loglevel(3)
                         promoteImageWithinCluster( "${APP_NAME}", "${CI_CD_PROJECT}", "${DEV_PROJECT}" )
-                        openshiftVerifyDeployment("${APP_NAME}", "${DEV_PROJECT}")
+                        verifyDeployment("${APP_NAME}", "${DEV_PROJECT}")
                     }
                 }
             }
@@ -52,9 +52,9 @@ pipeline {
             steps {
                 script{
                     timeout(10) { // in minutes
-                        openshiftPromoteImageWithinCluster( "${APP_NAME}", "${DEV_PROJECT}", "${TEST_PROJECT}" )
+                        promoteImageWithinCluster( "${APP_NAME}", "${DEV_PROJECT}", "${TEST_PROJECT}" )
                         // the new client is having random failures
-                        openshiftVerifyDeployment("${APP_NAME}", "${TEST_PROJECT}")
+                        verifyDeployment("${APP_NAME}", "${TEST_PROJECT}")
                     }
                 }
 
