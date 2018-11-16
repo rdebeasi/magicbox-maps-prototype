@@ -23,8 +23,7 @@ pipeline {
         stage('Bake'){
             steps{
                 script{
-                    def helper = load 'shared-library.groovy'
-                    helper.patchBuildConfigOutputLabels(env)
+                    patchBuildConfigOutputLabels(env)
 
                     openshift.withCluster () {
                         def buildSelector = openshift.startBuild( "${APP_NAME} --from-dir=${BUILD_OUTPUT_CONTEXT_DIR}" )
@@ -35,39 +34,27 @@ pipeline {
         }
 
         stage('Deploy: Dev'){
-            // Temporarily disabling features that require jenkins-slave-ansible
-            // until issues with that container are resolved.
-            // agent { label 'jenkins-slave-ansible'}
             steps {
                 script{
-                    def helper = load 'shared-library.groovy'
-                    // helper.applyAnsibleInventory( 'dev' )
                     timeout(5) { // in minutes
                         openshift.loglevel(3)
-                        helper.promoteImageWithinCluster( "${APP_NAME}", "${CI_CD_PROJECT}", "${DEV_PROJECT}" )
-                        helper.verifyDeployment("${APP_NAME}", "${DEV_PROJECT}")
+                        openshiftPromoteImageWithinCluster( "${APP_NAME}", "${CI_CD_PROJECT}", "${DEV_PROJECT}" )
+                        openshiftVerifyDeployment("${APP_NAME}", "${DEV_PROJECT}")
                     }
                 }
             }
         }
 
         stage('Deploy: Test'){
-            // agent { label 'jenkins-slave-ansible'}
             options {
                 timeout(time: 1, unit: 'HOURS')
             }
             steps {
-                script {
-                    slackSend "${env.APP_NAME} Input requested - ${JOB_NAME} ${BUILD_NUMBER} (<${BUILD_URL}|Open>)"
-                    input message: 'Deploy to Test?'
-                }
                 script{
-                    def helper = load 'shared-library.groovy'
-                    // helper.applyAnsibleInventory( 'test' )
                     timeout(10) { // in minutes
-                        helper.promoteImageWithinCluster( "${APP_NAME}", "${DEV_PROJECT}", "${TEST_PROJECT}" )
+                        openshiftPromoteImageWithinCluster( "${APP_NAME}", "${DEV_PROJECT}", "${TEST_PROJECT}" )
                         // the new client is having random failures
-                        helper.verifyDeployment("${APP_NAME}", "${TEST_PROJECT}")
+                        openshiftVerifyDeployment("${APP_NAME}", "${TEST_PROJECT}")
                     }
                 }
 
