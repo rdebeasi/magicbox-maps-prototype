@@ -1,0 +1,13 @@
+---
+- name: Run OpenShift Applier
+  hosts: local
+  gather_facts: no
+  vars:
+    ci_cd:
+      namespace: coo-ci-cd
+    dev:
+      namespace: coo-dev
+    test:
+      namespace: coo-test
+  roles:
+    - openshift-applier/roles/openshift-applier
