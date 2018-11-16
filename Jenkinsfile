@@ -38,7 +38,7 @@ pipeline {
                 script{
                     timeout(5) { // in minutes
                         openshift.loglevel(3)
-                        openshiftPromoteImageWithinCluster( "${APP_NAME}", "${CI_CD_PROJECT}", "${DEV_PROJECT}" )
+                        promoteImageWithinCluster( "${APP_NAME}", "${CI_CD_PROJECT}", "${DEV_PROJECT}" )
                         openshiftVerifyDeployment("${APP_NAME}", "${DEV_PROJECT}")
                     }
                 }
