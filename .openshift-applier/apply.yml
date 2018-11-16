@@ -4,10 +4,10 @@
   gather_facts: no
   vars:
     ci_cd:
-      namespace: coo-ci-cd
+      namespace: labs-ci-cdryan
     dev:
-      namespace: coo-dev
+      namespace: labs-devryan
     test:
-      namespace: coo-test
+      namespace: labs-testryan
   roles:
     - openshift-applier/roles/openshift-applier

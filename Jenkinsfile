@@ -3,22 +3,20 @@ pipeline {
     agent { label 'jenkins-slave-npm' }
 
     environment {
-        CI_CD_PROJECT = "coo-ci-cd"
-        DEV_PROJECT = "coo-dev"
-        TEST_PROJECT = "coo-test"
+        CI_CD_PROJECT = "labs-ci-cdryan"
+        DEV_PROJECT = "labs-devryan"
+        TEST_PROJECT = "labs-testryan"
         SOURCE_CONTEXT_DIR = ""
         BUILD_OUTPUT_CONTEXT_DIR = "dist/"
-        APP_NAME = "vue-booster"
+        APP_NAME = "magicbox-maps"
         OCP_API_SERVER = "${OPENSHIFT_API_URL}"
         OCP_TOKEN = readFile('/var/run/secrets/kubernetes.io/serviceaccount/token').trim()
-
     }
 
     stages {
         stage('Build'){
             steps{
-              slackSend "${APP_NAME} Job Started - ${JOB_NAME} ${BUILD_NUMBER} (<${BUILD_URL}|Open>)"
-              sh "npm install && ./node_modules/@vue/cli-service/bin/vue-cli-service.js build"
+              sh "npm install && npm run build"
             }
         }
 
