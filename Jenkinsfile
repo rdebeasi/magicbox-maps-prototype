@@ -7,7 +7,7 @@ pipeline {
         DEV_PROJECT = "labs-devryan"
         TEST_PROJECT = "labs-testryan"
         SOURCE_CONTEXT_DIR = ""
-        BUILD_OUTPUT_CONTEXT_DIR = "dist/"
+        BUILD_OUTPUT_CONTEXT_DIR = "public/"
         APP_NAME = "magicbox-maps"
         OCP_API_SERVER = "${OPENSHIFT_API_URL}"
         OCP_TOKEN = readFile('/var/run/secrets/kubernetes.io/serviceaccount/token').trim()
