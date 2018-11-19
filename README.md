@@ -5,6 +5,18 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/7dab7a5070c67de50551/maintainability)](https://codeclimate.com/github/unicef/magicbox-maps-prototype/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/7dab7a5070c67de50551/test_coverage)](https://codeclimate.com/github/unicef/magicbox-maps-prototype/test_coverage)
 
+## OpenShift Usage
+
+This fork of Magic Box Maps 2.0 makes it easy to build and deploy the application in OpenShift. The `.openshift-applier` directory contains the information needed to set up the application using the OpenShift Applier. The `Jenkinsfile` contains the build steps.
+
+This code assumes that continuous integration has been set up using [labs-ci-cd](https://github.com/rht-labs/labs-ci-cd/).
+
+For more information, see the [OpenShift Applier Readme](openshift-applier/README.md).
+
+**Note:** This repo expects the Jenkins shared library to be provided by Jenkins, not the application. This feature isn't yet in Labs CI-CD, but it should be available soon. See https://github.com/rdebeasi/ci-cd.
+
+## Overview
+
 This application is designed to suggest schools and regions most in need of infrastructure and planning for disaster prevention and response. It is the product of an 8 week collaboration between UNICEF Innovation and Red Hat Innovation Labs. It is still a prototype.
 
 This short video provides more detail [![IMAGE ALT TEXT HERE](https://i.ytimg.com/vi/-F8ODbOv8j4/maxresdefault.jpg)](http://www.youtube.com/watch?v=-F8ODbOv8j4)
