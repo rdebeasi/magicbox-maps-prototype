@@ -53,13 +53,9 @@ pipeline {
                 script{
                     timeout(10) { // in minutes
                         promoteImageWithinCluster( "${APP_NAME}", "${DEV_PROJECT}", "${TEST_PROJECT}" )
-                        // the new client is having random failures
                         verifyDeployment("${APP_NAME}", "${TEST_PROJECT}")
                     }
                 }
-
-                slackSend color: "good", message: ":success: ${APP_NAME} Build Completed - ${JOB_NAME} ${BUILD_NUMBER} (<${BUILD_URL}|Open>)"
-
             }
         }
     }
